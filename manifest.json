@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Search Tabs, Bookmarks, and History",
+  "version": "1.0",
+  "description": "Search through your active tabs, bookmarks, and history from the last 7 days.",
+  "permissions": [
+    "tabs",
+    "bookmarks",
+    "history"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "commands": {
+    "open-search-popup": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "Command+Shift+F"
+      },
+      "description": "Open search popup"
+    }
+  }
+}

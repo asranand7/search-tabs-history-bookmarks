@@ -4,6 +4,7 @@ A Chrome extension that provides an enhanced search popup for quickly searching 
 
 
 <img width="407" alt="image" src="https://github.com/user-attachments/assets/630fc82e-11be-470f-9569-12f29512f658">
+
 <img width="407" alt="image" src="https://github.com/user-attachments/assets/68cc12b3-d2a1-4aaa-8100-453dc25cf73f">
 
 

@@ -8,8 +8,8 @@
         body {
             font-family: Arial, sans-serif;
             width: 400px;
-            background-color: #fff;
-            color: #000;
+            background-color: #fff; /* Default light mode background */
+            color: #000; /* Default light mode text color */
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -21,10 +21,15 @@
             padding: 10px;
         }
 
-        input {
+        .search-box {
+            position: relative;
             width: calc(100% - 20px);
-            padding: 10px;
             margin: 10px 0;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             outline: none;
@@ -33,7 +38,7 @@
         .results-heading {
             margin: 10px 0;
             font-size: 16px;
-            color: #333;
+            color: #333; /* Default light mode heading color */
         }
 
         .results-list {
@@ -47,6 +52,8 @@
             align-items: center;
             padding: 10px;
             border-bottom: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
 
         .results-list li:last-child {
@@ -54,7 +61,7 @@
         }
 
         .results-list li.highlight {
-            background-color: #eee;
+            background-color: #eee; /* Default light mode highlight color */
         }
 
         img {
@@ -67,7 +74,7 @@
         a {
             flex: 1;
             text-decoration: none;
-            color: #000;
+            color: #000; /* Default light mode link color */
             font-size: 14px;
             overflow: hidden;
             white-space: nowrap;
@@ -75,15 +82,52 @@
         }
 
         .source-info {
-            color: #888;
+            color: #888; /* Default light mode source info color */
             font-size: 12px;
             margin-left: 10px;
+        }
+
+        /* Dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #fff;
+            }
+
+            .search-box input {
+                background-color: #333;
+                color: #fff;
+                border: 1px solid #666;
+            }
+
+            .results-heading {
+                color: #fff;
+            }
+
+            .results-list li {
+                background-color: #222;
+                border-bottom: 1px solid #444;
+            }
+
+            .results-list li.highlight {
+                background-color: #444;
+            }
+
+            a {
+                color: #fff;
+            }
+
+            .source-info {
+                color: #aaa;
+            }
         }
     </style>
 </head>
 <body>
     <div class="search-container">
-        <input type="text" id="searchBox" placeholder="Search tabs, bookmarks, history...">
+        <div class="search-box">
+            <input type="text" id="searchBox" placeholder="Search tabs, bookmarks, history...">
+        </div>
         <div id="results-container">
             <h2 id="tabs-heading" class="results-heading">Open Tabs</h2>
             <ul id="tabs-results" class="results-list"></ul>

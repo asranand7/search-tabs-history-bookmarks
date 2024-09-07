@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
             tabs.forEach(function (tab) {
                 if (tab.title.toLowerCase().includes(query) || tab.url.toLowerCase().includes(query)) {
                     console.log(tab); // Log favicon URL
-                    addResult(tabsResults, tab.title, tab.url, tab.favIconUrl, 'Tab');
+                    addResult(tabsResults, tab.title, tab.url, tab.favIconUrl, 'Tab', null, tab.id);
                 }
             });
             updateAllResults();
@@ -53,9 +53,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             bookmarks.forEach(function (bookmark) {
-                console.log(bookmark); // Log bookmark icon URL
-                const faviconUrl = getFaviconUrl(bookmark.url);
-                addResult(bookmarksResults, bookmark.title, bookmark.url, faviconUrl, 'Bookmark');
+                if (bookmark.url) { // Check if the bookmark has a valid URL
+                    console.log(bookmark); // Log bookmark icon URL
+                    const faviconUrl = getFaviconUrl(bookmark.url);
+                    addResult(bookmarksResults, bookmark.title, bookmark.url, faviconUrl, 'Bookmark');
+                }
             });
             updateAllResults();
         });
@@ -85,12 +87,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const urlObj = new URL(url);
             return `${urlObj.origin}/favicon.ico`;
         } catch (e) {
-            console.error('Invalid URL:', url);
+            // console.error('Invalid URL:', url);
             return 'icon16.png'; // Default icon if URL is invalid
         }
     }
 
-    function addResult(container, title, url, iconUrl, source, visitTime) {
+    function addResult(container, title, url, iconUrl, source, visitTime, tabId) {
         const li = document.createElement('li');
         const img = document.createElement('img');
         const a = document.createElement('a');
@@ -112,12 +114,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         a.href = url;
         a.textContent = title || url;
-        a.target = '_blank';
+        a.dataset.source = source;
+        a.dataset.tabId = tabId || '';
 
         li.appendChild(img);
         li.appendChild(a);
         li.appendChild(sourceSpan);
         container.appendChild(li);
+
+        // Add click event listener to the link
+        a.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (source === 'Tab' && tabId) {
+                // Switch to the existing tab
+                chrome.tabs.update(parseInt(tabId), { active: true });
+            } else {
+                // Open the link in a new tab
+                chrome.tabs.create({ url: a.href });
+            }
+        });
     }
 
     function updateAllResults() {

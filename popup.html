@@ -3,78 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search</title>
+    <title>Modern Search</title>
     <style>
+        :root {
+            --primary-color: #4a90e2;
+            --background-color: #f5f7fa;
+            --text-color: #333;
+            --hover-color: #e8f0fe;
+            --border-color: #e1e4e8;
+            --heading-color: #5a9bd4; /* Updated heading color */
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             width: 400px;
-            background-color: #fff; /* Default light mode background */
-            color: #000; /* Default light mode text color */
+            background-color: var(--background-color);
+            color: var(--text-color);
             margin: 0;
-            padding: 0;
+            padding: 20px;
             overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .search-container {
-            padding: 10px;
+            padding: 0;
         }
 
         .search-box {
             position: relative;
-            width: calc(100% - 20px);
-            margin: 10px 0;
+            width: 100%;
+            margin-bottom: 20px;
         }
 
         .search-box input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 12px 20px 12px 40px; /* Adjusted padding for the icon */
+            border: none;
+            border-radius: 25px; /* Rounded corners on both sides */
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
             outline: none;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: var(--text-color);
+            pointer-events: none;
         }
 
         .results-heading {
-            margin: 10px 0;
-            font-size: 16px;
-            color: #333; /* Default light mode heading color */
+            margin: 20px 0 10px;
+            font-size: 18px;
+            color: var(--heading-color); /* Changed heading color */
+            font-weight: 600;
+            padding-left: 10px; /* Added padding */
         }
 
         .results-list {
             list-style: none;
             padding: 0;
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center align items */
         }
 
         .results-list li {
             display: flex;
             align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
+            padding: 12px 15px;
             border-radius: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            transition: background-color 0.2s, transform 0.2s;
+            width: calc(100% - 20px); /* Ensure equal padding on both sides */
         }
 
-        .results-list li:last-child {
-            border-bottom: none;
-        }
-
-        .results-list li.highlight {
-            background-color: #eee; /* Default light mode highlight color */
+        .results-list li:hover {
+            background-color: var(--hover-color);
+            transform: translateX(5px);
         }
 
         img {
             width: 24px;
             height: 24px;
-            margin-right: 10px;
+            margin-right: 15px;
             border-radius: 4px;
         }
 
         a {
             flex: 1;
             text-decoration: none;
-            color: #000; /* Default light mode link color */
+            color: var(--text-color);
             font-size: 14px;
             overflow: hidden;
             white-space: nowrap;
@@ -82,50 +113,38 @@
         }
 
         .source-info {
-            color: #888; /* Default light mode source info color */
+            color: #888;
             font-size: 12px;
             margin-left: 10px;
         }
 
         /* Dark mode styles */
         @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #121212;
-                color: #fff;
+            :root {
+                --primary-color: #64b5f6;
+                --background-color: #1e1e1e;
+                --text-color: #e0e0e0;
+                --hover-color: #333;
+                --border-color: #444;
+                --heading-color: #90caf9;
             }
 
             .search-box input {
-                background-color: #333;
-                color: #fff;
-                border: 1px solid #666;
-            }
-
-            .results-heading {
-                color: #fff;
+                background-color: #2c2c2c;
+                color: var(--text-color);
             }
 
             .results-list li {
-                background-color: #222;
-                border-bottom: 1px solid #444;
-            }
-
-            .results-list li.highlight {
-                background-color: #444;
-            }
-
-            a {
-                color: #fff;
-            }
-
-            .source-info {
-                color: #aaa;
+                background-color: #2c2c2c;
             }
         }
     </style>
 </head>
-<body>
-    <div class="search-container">
+<body class="search-container">
         <div class="search-box">
+            <svg viewBox="0 0 24 24">
+                <path d="M21 19l-5.2-5.2a7.5 7.5 0 10-1.8 1.8L19 21l2-2zm-9.5-3a5.5 5.5 0 110-11 5.5 5.5 0 010 11z"></path>
+            </svg>
             <input type="text" id="searchBox" placeholder="Search tabs, bookmarks, history...">
         </div>
         <div id="results-container">
@@ -138,7 +157,6 @@
             <h2 id="history-heading" class="results-heading">History</h2>
             <ul id="history-results" class="results-list"></ul>
         </div>
-    </div>
     <script src="popup.js"></script>
 </body>
 </html>

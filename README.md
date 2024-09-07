@@ -2,6 +2,10 @@
 Developed by ChatGPT and my prompts 🙂
 A Chrome extension that provides an enhanced search popup for quickly searching through open tabs, bookmarks, and history. The extension features keyboard navigation and a search icon in the search bar for a better user experience.
 
+
+<img width="414" alt="image" src="https://github.com/user-attachments/assets/68cc12b3-d2a1-4aaa-8100-453dc25cf73f">
+
+
 ## Features
 
 - Search through open tabs, bookmarks, and history.

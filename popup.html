@@ -7,65 +7,94 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            width: 300px;
-            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background for the popup */
-            color: #fff; /* White text color */
+            width: 400px;
+            background-color: #fff;
+            color: #000;
             margin: 0;
             padding: 0;
             overflow: hidden;
-            border-radius: 20px; /* Curvy edges for the entire popup */
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Blurry shadow around the popup */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-container {
+            padding: 10px;
         }
 
         input {
-            width: calc(100% - 20px); /* Adjusted for padding */
+            width: calc(100% - 20px);
             padding: 10px;
-            margin: 10px; /* Added margin to fit within the curvy edges */
-            border: none;
-            border-radius: 15px; /* Curvy edges for input */
-            background-color: #333; /* Greyish background */
-            color: #fff; /* White text color */
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             outline: none;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Blurry shadow */
         }
 
-        ul {
+        .results-heading {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .results-list {
             list-style: none;
-            padding: 10px; /* Added padding for spacing */
+            padding: 0;
             margin: 0;
         }
 
-        li {
+        .results-list li {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
-            padding: 5px;
-            border-radius: 15px; /* Curvy edges */
-            background-color: rgba(85, 85, 85, 0.8); /* Light grey transparent background */
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Blurry shadow */
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .results-list li:last-child {
+            border-bottom: none;
+        }
+
+        .results-list li.highlight {
+            background-color: #eee;
         }
 
         img {
             width: 24px;
             height: 24px;
             margin-right: 10px;
-            border-radius: 50%;
+            border-radius: 4px;
         }
 
         a {
-            text-decoration: none;
-            color: #fff; /* White text color */
             flex: 1;
+            text-decoration: none;
+            color: #000;
+            font-size: 14px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
-        a:hover {
-            background-color: rgba(102, 102, 102, 0.8); /* Slightly lighter grey on hover */
+        .source-info {
+            color: #888;
+            font-size: 12px;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
-    <input type="text" id="searchBox" placeholder="Search...">
-    <ul id="results"></ul>
+    <div class="search-container">
+        <input type="text" id="searchBox" placeholder="Search tabs, bookmarks, history...">
+        <div id="results-container">
+            <h2 id="tabs-heading" class="results-heading">Open Tabs</h2>
+            <ul id="tabs-results" class="results-list"></ul>
+
+            <h2 id="bookmarks-heading" class="results-heading">Bookmarks</h2>
+            <ul id="bookmarks-results" class="results-list"></ul>
+
+            <h2 id="history-heading" class="results-heading">History</h2>
+            <ul id="history-results" class="results-list"></ul>
+        </div>
+    </div>
     <script src="popup.js"></script>
 </body>
 </html>

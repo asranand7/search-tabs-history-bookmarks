@@ -1,6 +1,6 @@
 # Chrome Extension: Search across your Open tabs, Bookmarks and History
 Developed by ChatGPT and my prompts 🙂. 
-A Chrome extension that provides an enhanced search popup for quickly searching through open tabs, bookmarks, and history. The extension features keyboard navigation and a search icon in the search bar for a better user experience.
+A Chrome [extension]([url](https://chromewebstore.google.com/detail/search-tabs-bookmarks-and/jpadmglaebjfhmppiimbaennfdmkbmff?authuser=0&hl=en-GB)) that provides an enhanced search popup for quickly searching through open tabs, bookmarks, and history. The extension features keyboard navigation and a search icon in the search bar for a better user experience.
 
 
 <img width="407" alt="image" src="https://github.com/user-attachments/assets/630fc82e-11be-470f-9569-12f29512f658">

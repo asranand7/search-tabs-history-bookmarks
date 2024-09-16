@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Search Tabs, Bookmarks, and History",
-  "version": "1.0",
+  "version": "3.0",
   "permissions": [
     "tabs",
     "bookmarks",

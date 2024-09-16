@@ -30,7 +30,15 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (e.key === 'ArrowUp') {
             navigateResults(-1);
         } else if (e.key === 'Enter') {
-            openResult();
+            e.preventDefault(); // Prevent form submission if within a form
+            if (allResults.length > 0) {
+                if (currentIndex === -1) {
+                    // If no result is currently selected, select the first one
+                    currentIndex = 0;
+                    allResults[currentIndex].classList.add('highlight');
+                }
+                openResult();
+            }
         }
     });
 
@@ -99,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const sourceSpan = document.createElement('span');
 
         img.src = iconUrl || 'icon16.png'; // Use local icon16.png if favicon URL is not available
-        img.onerror = function() {
+        img.onerror = function () {
             console.log('Failed to load favicon for:', url); // Log failure to load favicon
             this.src = 'icon16.png'; // Fallback to local icon16.png
         };
@@ -127,16 +135,21 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             if (source === 'Tab' && tabId) {
                 // Switch to the existing tab
-                chrome.tabs.update(parseInt(tabId), { active: true });
+                chrome.tabs.update(parseInt(tabId), {active: true});
             } else {
                 // Open the link in a new tab
-                chrome.tabs.create({ url: a.href });
+                chrome.tabs.create({url: a.href});
             }
         });
     }
 
     function updateAllResults() {
         allResults = Array.from(document.querySelectorAll('.results-list li'));
+        // Automatically highlight the first result if available
+        if (allResults.length > 0) {
+            currentIndex = 0;
+            allResults[currentIndex].classList.add('highlight');
+        }
     }
 
     function navigateResults(direction) {
@@ -157,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Highlight the new current item
         allResults[currentIndex].classList.add('highlight');
-        allResults[currentIndex].scrollIntoView({ block: 'nearest' });
+        allResults[currentIndex].scrollIntoView({block: 'nearest'});
     }
 
     function openResult() {
